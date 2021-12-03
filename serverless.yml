@@ -1,0 +1,44 @@
+org: danwakeemserverless
+app: rodger-api
+service: rodger-api
+configValidationMode: error
+
+provider:
+  name: aws
+  versionFunctions: false
+  runtime: nodejs14.x
+  tracing:
+    apiGateway: true
+    lambda: true
+  environment:
+    STAGE: ${opt:stage}
+
+plugins:
+  - serverless-offline
+
+package:
+  individually: true
+  patterns:
+    - '!coverage/**'
+    - '!.serverless/**'
+    - '!src/**/*.test.js'
+    - '!src/**/*.snap'
+    - '!.*'
+    - '!.github/*'
+    - '!*.sh'
+    - '!env.sample'
+    - '!assets/**'
+    - '!package.json'
+    - '!yarn.lock'
+    - '!README.md'
+    - '!jest.config.js'
+
+functions:
+  graphql:
+    handler: src/graphql/index.handler
+    timeout: 20
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true

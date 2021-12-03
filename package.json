@@ -1,0 +1,34 @@
+{
+  "name": "rodger-api",
+  "version": "1.0.0",
+  "description": "Just testing serverless framework",
+  "main": "index.js",
+  "author": "Danwakeem",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "sls offline start --noPrependStageInUrl --httpPort 3001",
+    "test": "jest ./src --coverage",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "deploy": "sls deploy --verbose",
+    "generate:schema": "node src/util/generate.schema.js"
+  },
+  "devDependencies": {
+    "apollo-server-testing": "^2.25.3",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.3",
+    "prettier": "^2.5.0",
+    "serverless": "^2.68.0",
+    "serverless-offline": "^8.3.1"
+  },
+  "dependencies": {
+    "@apollo/federation": "^0.33.8",
+    "apollo-server-lambda": "^3.5.0",
+    "faker": "^5.5.3",
+    "graphql": "^16.0.1",
+    "lodash": "^4.17.21"
+  }
+}
