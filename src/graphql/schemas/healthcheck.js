@@ -12,6 +12,7 @@ const typeDefs = gql`
   type EchoType {
     something: String
     random: String
+    another: String
   }
   type Mutation {
     rodgerEcho(input: Echo!): String
@@ -34,6 +35,18 @@ const resolvers = {
       random: animal.dog(),
     })
   },
+  EchoType: {
+    another: async () => {
+      const getStr = () => new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(animal.bear())
+        }, 1283);
+      });
+      // throw new Error('Sorry man');
+      const bear = await getStr();
+      return bear;
+    }
+  }
 };
 
 module.exports = {
