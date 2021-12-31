@@ -12,6 +12,11 @@ provider:
     lambda: true
   environment:
     STAGE: ${opt:stage}
+    AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-handler
+    OTEL_TRACES_EXPORTER: logging
+    OTEL_METRICS_EXPORTER: logging
+    OTEL_LOG_LEVEL: DEBUG
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:55681/v1/traces
 
 plugins:
   - serverless-offline
@@ -33,6 +38,11 @@ package:
     - '!README.md'
     - '!jest.config.js'
 
+layers:
+  graphqlMetrics:
+    package:
+      artifact: layer.zip
+
 functions:
   graphql:
     handler: src/graphql/index.handler
@@ -42,3 +52,6 @@ functions:
           path: graphql
           method: post
           cors: true
+    layers:
+      - { Ref: GraphqlMetricsLambdaLayer }
+      - arn:aws:lambda:us-east-1:377024778620:layer:otel-collector:10
