@@ -1,0 +1,24 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  logging:
+    loglevel: debug
+  otlphttp:
+    endpoint: "https://danj.core.serverless-dev.com/ingestion/kinesis"
+    headers: {"serverless-token": "xxxx"}
+    tls:
+      insecure: true
+    timeout: 300s
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlphttp, logging]
+    metrics:
+      receivers: [otlp]
+      exporters: [otlphttp, logging]

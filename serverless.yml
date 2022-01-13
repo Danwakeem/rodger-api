@@ -13,10 +13,7 @@ provider:
   environment:
     STAGE: ${opt:stage}
     AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-handler
-    OTEL_TRACES_EXPORTER: logging
-    OTEL_METRICS_EXPORTER: logging
-    OTEL_LOG_LEVEL: DEBUG
-    OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:55681/v1/traces
+    OPENTELEMETRY_COLLECTOR_CONFIG_FILE: /var/task/collector.yml
 
 plugins:
   - serverless-offline
