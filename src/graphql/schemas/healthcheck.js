@@ -8,6 +8,7 @@ const typeDefs = gql`
   type Query {
     rodgerHealthCheck: Boolean
     rodgerHealthCheck2: EchoType
+    rodgerHealthError: Boolean
   }
   type EchoType {
     something: String
@@ -27,6 +28,9 @@ const resolvers = {
       something: animal.cat(),
       random: animal.dog()
     }),
+    rodgerHealthError: () => {
+      throw new Error('Sorry bub');
+    },
   },
   Mutation: {
     rodgerEcho: (_, { input }) => input.text,
