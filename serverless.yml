@@ -14,9 +14,17 @@ provider:
     STAGE: ${opt:stage}
     AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-handler
     OPENTELEMETRY_COLLECTOR_CONFIG_FILE: /var/task/collector.yml
+    OTEL_RESOURCE_ATTRIBUTES: orgUid=9MJvd98pmm7B77YdMQ,applicationName=platform-core,appUid=JKHcVVDxmYw4rmyrGb,deploymentUid=e0ab99cd-c44b-432d-82a9-6597864ed2d7,serviceName=kinesis-ingestion,stageName=${opt:stage}
 
 plugins:
   - serverless-offline
+  # - serverless-esbuild
+
+custom:
+  esbuild:
+    packager: yarn
+    external:
+      - 'graphql'
 
 package:
   individually: true

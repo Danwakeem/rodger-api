@@ -1,5 +1,26 @@
 const { gql } = require('apollo-server-lambda');
-const { animal } = require('faker');
+
+const animal = {
+  cat: () => [
+    'calico',
+    'back cat',
+    'cat cat',
+    'kitty cat',
+  ][new Date().getTime() % 4],
+  dog: () => [
+    'pug',
+    'golden retriever',
+    'poodle',
+    'shiatsu',
+    'weiner dog',
+  ][new Date().getTime() % 5],
+  bear: () => [
+    'black bear',
+    'grizzly bear',
+    'brown bear',
+    'polar bear',
+  ][new Date().getTime() % 4],
+};
 
 const typeDefs = gql`
   input Echo {
